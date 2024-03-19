@@ -6,6 +6,7 @@ public class Enclos {
     private Veterinaire veterinaire;
     private Gardien gardien;
 
+    // Constructeur ========================================================
     public Enclos (String nom, int capaciteMax, Veterinaire veterinaire, Gardien gardien) {
         this.nom = nom;
         this.capaciteMax = capaciteMax;
@@ -16,4 +17,27 @@ public class Enclos {
     }
 
     // Debut Methodes =======================================================
+
+    public Gardien getGardien() {
+        return gardien;
+    }
+
+    public Veterinaire getVeterinaire() {
+        return veterinaire;
+    }
+
+    public void ajouterAnimaux(Animal[] lesAnimaux){
+
+    }
+
+    public int getNombreAnimaux() {
+        return nombreAnimaux;
+    }
+    public getAnimaux(){
+
+    }
+
+    public String toString(){
+
+    }
 }
