@@ -1,2 +1,7 @@
-public class Classe {
+public enum Classe {
+    Poisson,
+    Cetace,
+    Reptile,
+    Oiseau,
+    Mammifere
 }
