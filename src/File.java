@@ -7,7 +7,7 @@ public class File {
             return true;
         else return false;
     }
-    //methode pour ajouter un visiteur a la fin de la file, donc derriere tous les gens dans la file d'age < que 65
+    //methodes d'insertion
     public void insererDebutFile(Visiteur visiteur){
         Noeud nouveauNoeud = new Noeud(visiteur);
         if(this.estVide())
@@ -67,15 +67,29 @@ public class File {
         return;
     }
 
-    private Noeud getNoeud(int index) {
-        if (index < 0 || index >= nbElements)
+    //methodes de suppression
+    public Visiteur defiler(){
+        if(nbElements == 0){
+            System.out.println("Il n'y a aucun visiteur dans la file");
             return null;
+        }
 
-        Noeud courant = premier;
-        while (index-- != 0)
-            courant = courant.suivant;
-        return courant;
+        if(nbElements == 0){
+            Visiteur visiteur = premier.getVisiteur();
+            premier = null;
+            nbElements--;
+            return visiteur;
+        }
+        else {
+            Noeud dernier = getNoeud(nbElements -1);
+            Noeud avantDernier = getNoeud(nbElements -2);
+            avantDernier.setSuivant(null);
+            return dernier.getVisiteur();
+        }
+
     }
+
+
 
 
 
@@ -86,5 +100,14 @@ public class File {
     }
     public Noeud getPremier(){
         return premier;
+    }
+    private Noeud getNoeud(int index) {
+        if (index < 0 || index >= nbElements)
+            return null;
+
+        Noeud courant = premier;
+        while (index-- != 0)
+            courant = courant.suivant;
+        return courant;
     }
 }

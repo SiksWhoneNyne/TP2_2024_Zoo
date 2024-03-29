@@ -34,4 +34,13 @@ public class Zoo {
         }
 
     }
+
+    public Visiteur retirerVisiteur(){
+       return fileVisiteurs.defiler();
+    }
+
+    //getters
+    public File getFileVisiteurs(){
+        return fileVisiteurs;
+    }
 }
