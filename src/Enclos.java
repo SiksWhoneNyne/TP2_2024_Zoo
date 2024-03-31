@@ -12,4 +12,26 @@ public class Enclos {
         this.veterinaire = veterinaire;
         this.gardien = gardien;
     }
+
+    public void ajouterAnimaux(Animal[] lesAnimaux){
+        for (int i = 0; i < lesAnimaux.length; i++) {
+            this.animaux[i + nombreAnimaux] = lesAnimaux[i];
+        }
+    }
+
+    public int getNombreAnimaux(){
+        return nombreAnimaux;
+    }
+
+    public Veterinaire getVeterinaire(){
+        return veterinaire;
+    }
+
+    public Animal[] getAnimaux(){
+        return animaux;
+    }
+
+    public Gardien getGardien(){
+        return gardien;
+    }
 }

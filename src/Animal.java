@@ -63,13 +63,7 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Animal{" +
-                "nom='" + nom + '\'' +
-                ", regimeAlimentaire='" + regimeAlimentaire + '\'' +
-                ", poids=" + poids +
-                ", classe=" + classe +
-                ", espece='" + espece + '\'' +
-                ", besoinAlimentaire=" + besoinAlimentaire +
-                '}';
+        return String.format("%s nommé %s pèse %.1f kg et son besoin alimentaire %s de %.1f kg.",
+                classe.name().toLowerCase(), nom, poids, regimeAlimentaire, besoinAlimentaire);
     }
 }

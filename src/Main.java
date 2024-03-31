@@ -79,6 +79,7 @@ public class Main {
             entree.afficherEnclos();
             visiteur.entrerDansZoo(zoo);
             for (int i = 0; i < entree.getNombreEnclos(); i++) {
+
                 visiteur.entrerDansEnclo(entree.getEnclos()[i]);
                 System.out.println("Nombre total d'animaux dans l'enclos : " + entree.getEnclos()[i].getNombreAnimaux());
                 for (int j = 0; j < entree.getEnclos()[i].getNombreAnimaux(); j++) {

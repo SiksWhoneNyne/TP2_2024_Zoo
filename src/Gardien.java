@@ -25,4 +25,12 @@ public class Gardien {
         else
             animal.setPoids(animal.getPoids() - (animal.getPoids() *5) /100);
     }
+
+    public String getNom(){
+        return nom;
+    }
+
+    public int getCompetence(){
+        return competence;
+    }
 }

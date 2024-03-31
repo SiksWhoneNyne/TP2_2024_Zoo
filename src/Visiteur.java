@@ -3,6 +3,7 @@ public class Visiteur {
     private int age;
     private int nombreAnimaux;
     private String[] especes;
+    private String[] especesSouhaitees;
 
     public Visiteur(String nom,int age,String[] especes){
         this.nom = nom;
@@ -14,16 +15,42 @@ public class Visiteur {
         zoo.arriveeVisiteur(this);
     }
 
+    public void quitterZoo(){
+
+    }
+
     //getters
+    public String getNom() {
+        return nom;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     public String[] getEspeces(){
         return especes;
     }
 
-    public int getAge(){
-        return age;
+    // Setters
+    public void setNom(String nom) {
+        this.nom = nom;
     }
-    public String getNom(){
-        return nom;
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setEspecesSouhaitees(String[] especesSouhaitees) {
+        this.especesSouhaitees = especesSouhaitees;
+    }
+
+    @Override
+    public String toString() {
+        return "Visiteur{" +
+                "nom='" + nom + '\'' +
+                ", age=" + age +
+                '}';
     }
 
 }
