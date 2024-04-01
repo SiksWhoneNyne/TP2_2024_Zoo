@@ -1,36 +1,48 @@
 public class Gardien {
-    private String nom;
-    private int competence;
-    private int id;
-    private static int idDuSuivant = 1000;
+    private static int dernierId = 1000; // Attribut statique pour suivre le dernier ID attribué
+    private final String nom;
+    private final int competence;
+    private final int id;
 
-    public Gardien(String nom,int competence){
+    /**
+     * Constructeur pour le gardien.
+     * @param nom Le nom du gardien.
+     * @param competence Le niveau de compétence du gardien.
+     */
+    public Gardien(String nom, int competence) {
         this.nom = nom;
         this.competence = competence;
-        this.id = idDuSuivant++;
+        this.id = dernierId++; // Incrémente l'ID à chaque création de gardien
     }
 
-    public void entrainerAnimal(Animal animal,double temps){
-        if(temps <0 || temps > 60){
-            System.out.println("Le temps d'entrainement n'est pas entre 0 et 60 minutes");
-            return;
+    /**
+     * @param animal L'animal à entraîner.
+     * @param temps La durée de l'entraînement en minutes.
+     */
+    public void entrainerAnimal(Animal animal, double temps) {
+        if (temps < 10) {
+            animal.modifierPoids(1.01); // Augmente le poids de 1%
+        } else if (temps <= 30) {
+            animal.modifierPoids(0.98); // Diminue le poids de 2%
+        } else {
+            animal.modifierPoids(0.95); // Diminue le poids de 5%
         }
-
-        if(temps < 10){
-            animal.setPoids(animal.getPoids() + (animal.getPoids() /100));
-        }
-        else if(temps >= 10 && temps <= 30){
-            animal.setPoids(animal.getPoids() - (animal.getPoids() *2) /100);
-        }
-        else
-            animal.setPoids(animal.getPoids() - (animal.getPoids() *5) /100);
     }
 
-    public String getNom(){
+    public String getNom() {
         return nom;
     }
 
-    public int getCompetence(){
+    public int getCompetence() {
         return competence;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s (%d) - Compétence: %d", nom, id, competence);
     }
 }

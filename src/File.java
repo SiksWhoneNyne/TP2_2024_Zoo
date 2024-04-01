@@ -21,7 +21,7 @@ public class File {
             }
         nbElements++;
     }
-
+    //Methode pour inserer un visiteur a la fin de la file
     public void insererALaFinFile(Visiteur visiteur) {
 
         if (premier == null){
@@ -39,7 +39,7 @@ public class File {
         ++nbElements;
         return;
     }
-
+    //Methode pour ajouter un visiteur a un endroit précis dans la file
     public void insererAuMilieu(Visiteur visiteur, int index) {
         if (index < 0 || index > nbElements) {
             System.out.println("Index invalide");
@@ -101,13 +101,33 @@ public class File {
     public Noeud getPremier(){
         return premier;
     }
-    private Noeud getNoeud(int index) {
+    public Noeud getNoeud(int index) {
         if (index < 0 || index >= nbElements)
             return null;
 
         Noeud courant = premier;
-        while (index-- != 0)
+        int position = 0;
+        while (courant != null && position != index) {
             courant = courant.suivant;
+            position++;
+        }
         return courant;
+    }
+
+    public int getIndex(Visiteur visiteur) {
+        Noeud courant = premier;
+        int index = 0;
+        while (courant != null) {
+            if (courant.getValeur().equals(visiteur)) {
+                return index;
+            }
+            courant = courant.getSuivant();
+            index++;
+        }
+        return -1;
+    }
+
+    public String toString(){
+        return "";
     }
 }

@@ -18,13 +18,13 @@ public class Zoo {
         boolean gardienEnFonction = false;
         int nbCompetenceDesGardiens = 0;
 
-        for (int i = 0; i < getPileGardiens().getGardiens().length; i++) {
+        for (int i = 0; i < lesEnclos.length; i++) {
             if(lesEnclos[i].getGardien().equals(getPileGardiens().getGardiens()[0])){
                 gardienEnFonction = true;
             }
         }
 
-        for (int i = 0; i < getPileGardiens().getGardiens().length; i++) {
+        for (int i = 0; i < pileGardiens.getNbElements(); i++) {
             nbCompetenceDesGardiens += getPileGardiens().getGardiens()[i].getCompetence();
         }
 
@@ -38,22 +38,24 @@ public class Zoo {
     public void arriveeVisiteur(Visiteur visiteur){
 
         if(fileVisiteurs.estVide() || visiteur.getAge() <65){
-            fileVisiteurs.insererDebutFile(visiteur);
+            fileVisiteurs.insererALaFinFile(visiteur);
         }
 
-        else{
+        else if(fileVisiteurs.getNbElements() == 1){
+            if(fileVisiteurs.getNoeud(0).getVisiteur().getAge() < 65 && visiteur.getAge() >=65)
+                fileVisiteurs.insererDebutFile(visiteur);
+            else fileVisiteurs.insererALaFinFile(visiteur);
+            }
+        else if(fileVisiteurs.getNbElements() > 1) {
             Noeud courant = fileVisiteurs.getPremier();
-            int ctn = 0;
-
-            while (courant != null){
-                if (courant.getValeur().getAge() >= 65){
-                    fileVisiteurs.insererAuMilieu(visiteur,ctn);
+            for (int i = 0;courant!=null; i++) {
+                if(courant.getVisiteur().getAge() >= 65){
+                    fileVisiteurs.insererAuMilieu(visiteur,i+1);
+                    return;
                 }
                 courant = courant.suivant;
-                ctn++;
             }
         }
-
     }
 
 
@@ -65,15 +67,18 @@ public class Zoo {
 
     public boolean ajouterEnclos(Enclos[] enclos) {
         int sommePointsExp = 0;
-        for (int i = 0; i < getPileGardiens().getNbElements(); i++) {
-            sommePointsExp += getPileGardiens().getGardiens()[i].getCompetence();
+        for (int i = 0; i < enclos.length; i++) {
+            sommePointsExp += enclos[i].getGardien().getCompetence();
         }
         if(sommePointsExp < 20)
             return false;
 
 
         for (int i = 0; i < enclos.length; i++) {
-            lesEnclos[++nombreEnclos] = enclos[i];
+            lesEnclos[nombreEnclos++] = enclos[i];
+            nombreTotalAnimaux += enclos[i].getNombreAnimaux();
+            pileGardiens.empiler(enclos[i].getGardien());
+
         }
 
         return true;
@@ -110,16 +115,15 @@ public class Zoo {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Zoo: ").append(nom).append("\n");
+        StringBuilder sb = new StringBuilder("Zoo: " + nom + "\n");
         sb.append("Nombre d'enclos: ").append(nombreEnclos).append("\n");
         sb.append("Nombre total d'animaux: ").append(nombreTotalAnimaux).append("\n");
-        sb.append("Gardiens: \n").append(pileGardiens).append("\n");
-        sb.append("Visiteurs en file: \n").append(fileVisiteurs).append("\n");
-        for (Enclos enclos : lesEnclos) {
-            if (enclos != null) {
-                sb.append(enclos).append("\n");
-            }
+        sb.append("Voici la ").append(pileGardiens).append("\n");
+        sb.append(fileVisiteurs).append("\n");
+        for (int i = 0; i < lesEnclos.length; i++) {
+            sb.append(lesEnclos[i].toString());
         }
+
         return sb.toString();
     }
 }

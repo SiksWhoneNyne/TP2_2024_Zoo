@@ -30,6 +30,11 @@ public class Animal {
         }
     }
 
+    public void modifierPoids(double facteur) {
+        this.poids *= facteur;
+        this.besoinAlimentaire = calculerBesoinAlimentaire(); // Recalcule le besoin alimentaire après modification du poids
+    }
+
     // Getters
     public String getNom() {
         return nom;
@@ -55,7 +60,7 @@ public class Animal {
         return besoinAlimentaire;
     }
 
-    // Setter pour le poids, au cas où l'animal prend ou perd du poids
+    // Setter pour le poids, si l'animal prend ou perd du poids
     public void setPoids(double poids) {
         this.poids = poids;
         this.besoinAlimentaire = calculerBesoinAlimentaire(); // Mise à jour du besoin alimentaire
@@ -63,7 +68,13 @@ public class Animal {
 
     @Override
     public String toString() {
-        return String.format("%s nommé %s pèse %.1f kg et son besoin alimentaire %s de %.1f kg.",
-                classe.name().toLowerCase(), nom, poids, regimeAlimentaire, besoinAlimentaire);
+        return "Animal{" +
+                "nom='" + nom + '\'' +
+                ", regimeAlimentaire='" + regimeAlimentaire + '\'' +
+                ", poids=" + poids +
+                ", classe=" + classe +
+                ", espece='" + espece + '\'' +
+                ", besoinAlimentaire=" + besoinAlimentaire +
+                '}';
     }
 }
