@@ -47,9 +47,12 @@ public class Pile {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Pile de Gardiens: \n");
-        for (int i = nbElements - 1; i >= 0; i--) {
-            sb.append(gardiens[i].getNom()).append("\n");
+        StringBuilder sb = new StringBuilder(getNbElements() + " gardiens (capacité " + gardiens.length + ") : ");
+        for (int i = 0; i < gardiens.length;i++) {
+            if(gardiens[i] != null)
+                sb.append("[" + gardiens[i].getNom() + "(" + gardiens[i].getId() + ") " + gardiens[i].getCompetence() +"] ");
+            else
+                sb.append("[null] ");
         }
         return sb.toString();
     }

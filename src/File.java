@@ -128,6 +128,13 @@ public class File {
     }
 
     public String toString(){
-        return "";
+        String stringARetourner = getNbElements() + " visiteurs: ";
+        Noeud courant = premier;
+        for (int i = 0; i < getNbElements(); i++) {
+            stringARetourner += "[" + courant.getValeur().getNom() + "," + courant.getValeur().getAge() + "] -> " ;
+            courant = courant.suivant;
+        }
+        stringARetourner += "[null]";
+        return stringARetourner;
     }
 }

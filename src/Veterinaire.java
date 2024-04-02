@@ -35,4 +35,8 @@ public class Veterinaire {
     public Classe getSpecialite() {
         return specialite;
     }
+
+    public String toString(){
+        return nom + ", " + specialite;
+    }
 }

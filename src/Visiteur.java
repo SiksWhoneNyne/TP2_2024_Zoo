@@ -19,6 +19,17 @@ public class Visiteur {
 
     }
 
+    public void entrerDansEnclo(Enclos enclos) {
+        if(enclos != null) {
+            System.out.println(this.nom + " est entré dans l'enclos " + enclos.getNom() + ".");
+        }
+    }
+    public void quitterEnclo(Enclos enclos) {
+        if(enclos != null) {
+            System.out.println(this.nom + " a quitté l'enclos " + enclos.getNom() + ".");
+        }
+    }
+
     //getters
     public String getNom() {
         return nom;

@@ -17,10 +17,12 @@ public class Zoo {
     public Gardien retirerGardien(){
         boolean gardienEnFonction = false;
         int nbCompetenceDesGardiens = 0;
+        int indexEnclos =-1;
 
         for (int i = 0; i < lesEnclos.length; i++) {
             if(lesEnclos[i].getGardien().equals(getPileGardiens().getGardiens()[0])){
                 gardienEnFonction = true;
+                indexEnclos = i;
             }
         }
 
@@ -31,7 +33,15 @@ public class Zoo {
         if(gardienEnFonction == true && nbCompetenceDesGardiens - getPileGardiens().getGardiens()[0].getCompetence() < 20){
             return null;
         }
-        else
+        else{
+            for (int i = 0; i < lesEnclos.length; i++) {
+                if(i == indexEnclos){
+                    lesEnclos[i].setGardien(null);
+                    break;
+                }
+            }
+
+        }
             return getPileGardiens().depiler();
     }
 
@@ -115,11 +125,9 @@ public class Zoo {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Zoo: " + nom + "\n");
-        sb.append("Nombre d'enclos: ").append(nombreEnclos).append("\n");
-        sb.append("Nombre total d'animaux: ").append(nombreTotalAnimaux).append("\n");
-        sb.append("Voici la ").append(pileGardiens).append("\n");
-        sb.append(fileVisiteurs).append("\n");
+        StringBuilder sb = new StringBuilder("");
+        sb.append("Voici la pile de gardiens: \n").append(pileGardiens).append("\n");
+        sb.append("Voici la file des visiteurs: \n" + fileVisiteurs).append("\n");
         for (int i = 0; i < lesEnclos.length; i++) {
             sb.append(lesEnclos[i].toString());
         }

@@ -17,13 +17,16 @@ public class Enclos {
 
     public void ajouterAnimaux(Animal[] lesAnimaux){
         for (int i = 0; i < lesAnimaux.length; i++) {
-            this.animaux[i + nombreAnimaux] = lesAnimaux[i];
+            this.animaux[nombreAnimaux] = lesAnimaux[i];
             nombreAnimaux++;
         }
     }
 
     public int getNombreAnimaux(){
         return nombreAnimaux;
+    }
+    public String getNom() {
+        return this.nom;
     }
 
     public Veterinaire getVeterinaire(){
@@ -38,17 +41,26 @@ public class Enclos {
         return gardien;
     }
 
+    //setters
+    public void setGardien(Gardien gardien){
+        this.gardien = gardien;
+    }
+
     @Override
     public String toString() {
-        String result = "L'enclos '" + nom + "' est peuplé avec " + nombreAnimaux + " animaux. Sa capacité est de " + capaciteMax + " animaux.\n";
-        result += "Les animaux dans cet enclos:\n";
+        String result = "L'enclos '" + nom + "' est peuplé avec " + nombreAnimaux + " animaux. ";
+        if(gardien != null && veterinaire != null)
+               result += "Sa capacité est de " + capaciteMax + " animaux." + " Le vétérinaire assigné est [" + veterinaire.toString() + "]." + "Le gardien actuel est [" + gardien.toString() + "] \n" ;
+        else if(veterinaire == null)
+            result += "Sa capacité est de " + capaciteMax + " animaux." + "Il n'y a aucun vétérinaire assigné! " + "Le gardien actuel est [" + gardien.toString() + "] \n" ;
+        else if(gardien == null)
+            result += "Sa capacité est de " + capaciteMax + " animaux." + " Le vétérinaire assigné est [" + veterinaire.toString() + "]." + "il n'y a aucun gardien pour cet enclos! \n" ;
 
+        result += "Les animaux dans cet enclos:\n";
         for (int i = 0; i < nombreAnimaux; i++) {
             result += "\t- " + animaux[i].toString() + "\n";
         }
 
-        result += "Le vétérinaire assigné est " + veterinaire.toString() + "\n";
-        result += "Le gardien actuel est " + gardien.toString() + "\n";
         return result;
     }
 }

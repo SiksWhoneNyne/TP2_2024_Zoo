@@ -12,7 +12,8 @@ public class Gardien {
     public Gardien(String nom, int competence) {
         this.nom = nom;
         this.competence = competence;
-        this.id = dernierId++; // Incrémente l'ID à chaque création de gardien
+        this.id = dernierId;// Incrémente l'ID à chaque création de gardien
+        dernierId++;
     }
 
     /**
@@ -41,8 +42,9 @@ public class Gardien {
         return id;
     }
 
+
     @Override
     public String toString() {
-        return String.format("%s (%d) - Compétence: %d", nom, id, competence);
+        return nom + " (" +  dernierId + "), " + competence;
     }
 }
