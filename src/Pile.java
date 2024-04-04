@@ -2,14 +2,17 @@ public class Pile {
     private static final int TAILLE_INITIALE = 4;
     private Gardien[] gardiens;
     private int nbElements;
+    private final int RATIO_AGRANDISEMENT =2;
+    private int capacite;
 
     public Pile() {
         gardiens = new Gardien[TAILLE_INITIALE];
         nbElements = 0;
+        capacite =gardiens.length;
     }
 
     public void empiler(Gardien gardien) {
-        if (nbElements == gardiens.length) {
+        if (nbElements == capacite) {
             agrandir();
         }
         gardiens[nbElements++] = gardien;
@@ -25,7 +28,8 @@ public class Pile {
     }
 
     private void agrandir() {
-        Gardien[] nouveauTableau = new Gardien[gardiens.length * 2];
+        capacite = capacite * RATIO_AGRANDISEMENT;
+        Gardien[] nouveauTableau = new Gardien[capacite];
         for (int i = 0; i < gardiens.length; i++) {
             nouveauTableau[i] = gardiens[i];
         }
@@ -35,6 +39,7 @@ public class Pile {
     public boolean estVide() {
         return nbElements == 0;
     }
+
 
     // Getters
     public Gardien[] getGardiens() {
@@ -47,7 +52,7 @@ public class Pile {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(getNbElements() + " gardiens (capacité " + gardiens.length + ") : ");
+        StringBuilder sb = new StringBuilder(getNbElements() + " gardiens (capacité " + capacite + ") : ");
         for (int i = 0; i < gardiens.length;i++) {
             if(gardiens[i] != null)
                 sb.append("[" + gardiens[i].getNom() + "(" + gardiens[i].getId() + ") " + gardiens[i].getCompetence() +"] ");

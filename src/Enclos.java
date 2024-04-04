@@ -54,7 +54,7 @@ public class Enclos {
         else if(veterinaire == null)
             result += "Sa capacité est de " + capaciteMax + " animaux." + "Il n'y a aucun vétérinaire assigné! " + "Le gardien actuel est [" + gardien.toString() + "] \n" ;
         else if(gardien == null)
-            result += "Sa capacité est de " + capaciteMax + " animaux." + " Le vétérinaire assigné est [" + veterinaire.toString() + "]." + "il n'y a aucun gardien pour cet enclos! \n" ;
+            result += "Sa capacité est de " + capaciteMax + " animaux." + " Le vétérinaire assigné est [" + veterinaire.toString() + "]." + " Pas de gardien actuellement dans l'enclos\n" ;
 
         result += "Les animaux dans cet enclos:\n";
         for (int i = 0; i < nombreAnimaux; i++) {

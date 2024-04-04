@@ -1,5 +1,5 @@
 public class Gardien {
-    private static int dernierId = 1000; // Attribut statique pour suivre le dernier ID attribué
+    private static int dernierId = 999;
     private final String nom;
     private final int competence;
     private final int id;
@@ -12,9 +12,10 @@ public class Gardien {
     public Gardien(String nom, int competence) {
         this.nom = nom;
         this.competence = competence;
-        this.id = dernierId;// Incrémente l'ID à chaque création de gardien
-        dernierId++;
+        ++dernierId;
+        this.id = dernierId;
     }
+
 
     /**
      * @param animal L'animal à entraîner.
@@ -45,6 +46,6 @@ public class Gardien {
 
     @Override
     public String toString() {
-        return nom + " (" +  dernierId + "), " + competence;
+        return nom + " (" +  id + "), " + competence;
     }
 }

@@ -3,77 +3,71 @@ public class Entree {
     private int nombreEnclos;
     private Enclos[] lesEnclos;
 
-    // Constructeur
     public Entree(Visiteur visiteur, Zoo zoo) {
-        int nombreEnclosRequis = nombreEnclosRequis(visiteur.getEspeces(), zoo);
+        // Initialisation des variables
+        this.nombreEnclos = 0;
+        Enclos[] enclosPotentiels = zoo.getLesEnclos();
+        this.lesEnclos = new Enclos[zoo.getNombreEnclos()];
 
-        // Calcul du prix
+        // Parcourir tous les enclos potentiels du zoo
+        for (int i = 0; i < zoo.getNombreEnclos(); i++) {
+            Enclos enclos = enclosPotentiels[i];
+            // Vérifier si le visiteur veut visiter l'enclos et si l'enclos a un gardien
+            if (enclos.getGardien() != null && visiteurVeutVisiterEnclos(visiteur, enclos)) {
+                this.lesEnclos[nombreEnclos++] = enclos;
+            }
+        }
+
+        // Calculer le prix
+        this.prix = calculerPrix(visiteur, zoo);
+    }
+
+    private boolean visiteurVeutVisiterEnclos(Visiteur visiteur, Enclos enclos) {
+        for (int i = 0; i < visiteur.getEspeces().length; i++) {
+            String especeVisiteur = visiteur.getEspeces()[i];
+            for (int j = 0; j < enclos.getAnimaux().length; j++) {
+                Animal animal = enclos.getAnimaux()[j];
+                if (animal != null && especeVisiteur.equals(animal.getEspece())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private double calculerPrix(Visiteur visiteur, Zoo zoo) {
+        double prixBase = 10 * this.nombreEnclos + 1 * zoo.getNombreTotalAnimaux();
         if (visiteur.getAge() < 12) {
-            this.prix = 0;
-        } else if (visiteur.getAge() >= 13 && visiteur.getAge() <= 17) {
-            this.prix = nombreEnclosRequis * 10 * 0.5;
-        } else if (visiteur.getAge() >= 65) {
-            this.prix = nombreEnclosRequis * 10 * 0.5;
+            return 0;
+        } else if ((visiteur.getAge() >= 13 && visiteur.getAge() <= 17) || visiteur.getAge() >= 65) {
+            return prixBase * 0.5;
         } else {
-            this.prix = nombreEnclosRequis * 10;
-        }
-
-        // Création des enclos pour l'entrée
-        this.nombreEnclos = nombreEnclosRequis;
-        this.lesEnclos = new Enclos[nombreEnclosRequis];
-        int index = 0;
-        for (Classe classe : Classe.values()) {
-            if (index >= nombreEnclosRequis) {
-                break;
-            }
-            Enclos enclos = zoo.getLesEnclos(classe);
-            if (enclos != null && enclos.getGardien() != null) {
-                this.lesEnclos[index] = enclos;
-                index++;
-            }
+            return prixBase;
         }
     }
 
-    // Méthode pour calculer le nombre d'enclos requis en fonction des espèces souhaitées
-    private int nombreEnclosRequis(String[] especes, Zoo zoo) {
-        int nombreEnclosRequis = 0;
-        Enclos[] enclosZoo = zoo.getLesEnclos();
-        int i = 0;
-        while (i < enclosZoo.length && enclosZoo[i] != null) {
-            if (enclosZoo[i].getGardien() != null && enclosZoo[i].contientEspeceDeListe(especes)) {
-                nombreEnclosRequis++;
-            }
-            i++;
+    public double getPrix() {
+        return this.prix;
+    }
+
+    public int getNombreEnclos() {
+        return this.nombreEnclos;
+    }
+
+    public Enclos[] getEnclos() {
+        Enclos[] enclosVisibles = new Enclos[this.nombreEnclos];
+        for (int i = 0; i < this.nombreEnclos; i++) {
+            enclosVisibles[i] = this.lesEnclos[i];
         }
-        return nombreEnclosRequis;
+        return enclosVisibles;
     }
 
-
-
-    // Getter pour le prix de l'entrée
-    public double getPrix(){
-        return prix;
-    }
-    public int getNombreEnclos(){
-        return nombreEnclos;
-    }
-    public Enclos[] getEnclos(){
-        return lesEnclos;
-    }
-    public void afficherEnclos(){
-        String afficheEnclos = "Les enclos : ";
-        for (int i = 0; i < lesEnclos.length; i++) {
-            afficheEnclos += afficheEnclos + lesEnclos[i];
-        }
-    }
-
-    /*
     public void afficherEnclos() {
-        int i = 0;
-        while (i < lesEnclos.length && lesEnclos[i] != null) {
-            System.out.println(lesEnclos[i]);
-            i++;
+        System.out.print("Ce billet permettra de visiter les " + this.nombreEnclos + " enclos suivants: ");
+        for (int i = 0; i < this.nombreEnclos; i++) {
+            if (i > 0) System.out.print(", ");
+            System.out.print(this.lesEnclos[i].getNom());
         }
+        System.out.println();
     }
-    */
 }

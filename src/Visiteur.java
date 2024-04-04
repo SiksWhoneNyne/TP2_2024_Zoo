@@ -1,36 +1,35 @@
 public class Visiteur {
     private String nom;
     private int age;
-    private int nombreAnimaux;
     private String[] especes;
-    private String[] especesSouhaitees;
 
-    public Visiteur(String nom,int age,String[] especes){
+    public Visiteur(String nom, int age, String[] especes) {
         this.nom = nom;
         this.age = age;
         this.especes = especes;
     }
 
-    public void entrerDansZoo(Zoo zoo){
-        zoo.arriveeVisiteur(this);
+    public void entrerDansZoo(Zoo zoo) {
+        System.out.println(this.toString() + " est entré dans le zoo " + zoo.getNom() + ".");
     }
 
-    public void quitterZoo(){
-
+    public void quitterZoo() {
+        System.out.println(this.toString() + " a quitté le zoo.");
     }
 
     public void entrerDansEnclo(Enclos enclos) {
         if(enclos != null) {
-            System.out.println(this.nom + " est entré dans l'enclos " + enclos.getNom() + ".");
-        }
-    }
-    public void quitterEnclo(Enclos enclos) {
-        if(enclos != null) {
-            System.out.println(this.nom + " a quitté l'enclos " + enclos.getNom() + ".");
+            System.out.println(this.toString() + " est entré dans l'enclos " + enclos.getNom() + ".");
         }
     }
 
-    //getters
+    public void quitterEnclo(Enclos enclos) {
+        if(enclos != null) {
+            System.out.println(this.toString() + " a quitté l'enclos " + enclos.getNom() + ".");
+        }
+    }
+
+    // Getters
     public String getNom() {
         return nom;
     }
@@ -39,29 +38,12 @@ public class Visiteur {
         return age;
     }
 
-    public String[] getEspeces(){
+    public String[] getEspeces() {
         return especes;
-    }
-
-    // Setters
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setEspecesSouhaitees(String[] especesSouhaitees) {
-        this.especesSouhaitees = especesSouhaitees;
     }
 
     @Override
     public String toString() {
-        return "Visiteur{" +
-                "nom='" + nom + '\'' +
-                ", age=" + age +
-                '}';
+        return "[" + nom +", " + age + "]";
     }
-
 }

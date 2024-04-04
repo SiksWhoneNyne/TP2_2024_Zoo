@@ -2,137 +2,102 @@ public class File {
     private Noeud premier;
     private int nbElements;
 
-    public boolean estVide(){
-        if(premier == null)
-            return true;
-        else return false;
+    public File() {
+        this.premier = null;
+        this.nbElements = 0;
     }
-    //methodes d'insertion
-    public void insererDebutFile(Visiteur visiteur){
+
+    public boolean estVide() {
+        return premier == null;
+    }
+
+    public void insererDebutFile(Visiteur visiteur) {
         Noeud nouveauNoeud = new Noeud(visiteur);
-        if(this.estVide())
-            premier = nouveauNoeud;
-
-        else{
-                Noeud debutDeLaFile = premier;
-                nouveauNoeud.setSuivant(debutDeLaFile);
-                premier = nouveauNoeud;
-
-            }
+        if (!this.estVide()) {
+            nouveauNoeud.setSuivant(premier);
+        }
+        premier = nouveauNoeud;
         nbElements++;
     }
-    //Methode pour inserer un visiteur a la fin de la file
+
     public void insererALaFinFile(Visiteur visiteur) {
-
-        if (premier == null){
-            insererDebutFile(visiteur);
-            return;
-      }
-
-        Noeud courant = premier;
-        while (courant.getSuivant() != null)
-            courant = courant.getSuivant();
-
-        Noeud nouveau = new Noeud(visiteur);
-        courant.setSuivant(nouveau);
-
-        ++nbElements;
-        return;
+        Noeud nouveauNoeud = new Noeud(visiteur);
+        if (this.estVide()) {
+            premier = nouveauNoeud;
+        } else {
+            Noeud courant = premier;
+            while (courant.getSuivant() != null) {
+                courant = courant.getSuivant();
+            }
+            courant.setSuivant(nouveauNoeud);
+        }
+        nbElements++;
     }
-    //Methode pour ajouter un visiteur a un endroit précis dans la file
+
     public void insererAuMilieu(Visiteur visiteur, int index) {
-        if (index < 0 || index > nbElements) {
-            System.out.println("Index invalide");
-            return;
-        }
-
-        if (index == 0){
+        if (index <= 0) {
             insererDebutFile(visiteur);
-            return;
-        }
-
-        else if (index == nbElements){
+        } else if (index >= nbElements) {
             insererALaFinFile(visiteur);
-            return;
+        } else {
+            Noeud courant = premier;
+            for (int i = 0; i < index - 1; i++) {
+                courant = courant.getSuivant();
+            }
+            Noeud nouveauNoeud = new Noeud(visiteur);
+            nouveauNoeud.setSuivant(courant.getSuivant());
+            courant.setSuivant(nouveauNoeud);
+            nbElements++;
         }
-
-
-        Noeud avant = getNoeud(index - 1);
-
-        Noeud apres = avant.suivant;
-        Noeud nouveau = new Noeud(visiteur);
-        avant.setSuivant(nouveau);
-        nouveau.setSuivant(apres);
-        ++nbElements;
-        return;
     }
 
-    //methodes de suppression
     public Visiteur defiler(){
         if(nbElements == 0){
             System.out.println("Il n'y a aucun visiteur dans la file");
             return null;
         }
 
-        if(nbElements == 0){
+        if(nbElements == 1){
             Visiteur visiteur = premier.getVisiteur();
             premier = null;
             nbElements--;
             return visiteur;
         }
         else {
-            Noeud dernier = getNoeud(nbElements -1);
-            Noeud avantDernier = getNoeud(nbElements -2);
-            avantDernier.setSuivant(null);
-            return dernier.getVisiteur();
+            Noeud premierNoeud = premier;
+            premier = premier.getSuivant();
+            nbElements--;
+            return premierNoeud.getVisiteur();
         }
 
     }
 
-
-
-
-
-
-    //getters
-    public int getNbElements(){
+    public int getNbElements() {
         return nbElements;
     }
-    public Noeud getPremier(){
+
+    public Noeud getPremier() {
         return premier;
     }
-    public Noeud getNoeud(int index) {
-        if (index < 0 || index >= nbElements)
-            return null;
 
+    public Noeud getNoeud(int index) {
+        if (index < 0 || index >= nbElements) {
+            return null;
+        }
         Noeud courant = premier;
-        int position = 0;
-        while (courant != null && position != index) {
-            courant = courant.suivant;
-            position++;
+        for (int i = 0; i < index; i++) {
+            courant = courant.getSuivant();
         }
         return courant;
     }
 
-    public int getIndex(Visiteur visiteur) {
+    @Override
+    public String toString() {
+        String stringARetourner = nbElements + " visiteurs: ";
         Noeud courant = premier;
-        int index = 0;
         while (courant != null) {
-            if (courant.getValeur().equals(visiteur)) {
-                return index;
-            }
+            stringARetourner += "[" + courant.getVisiteur().getNom() + ", " + courant.getVisiteur().getAge() + "] -> ";
             courant = courant.getSuivant();
-            index++;
-        }
-        return -1;
-    }
-
-    public String toString(){
-        String stringARetourner = getNbElements() + " visiteurs: ";
-        Noeud courant = premier;
-        for (int i = 0; i < getNbElements(); i++) {
-            stringARetourner += "[" + courant.getValeur().getNom() + "," + courant.getValeur().getAge() + "] -> " ;
-            courant = courant.suivant;
         }
         stringARetourner += "[null]";
         return stringARetourner;
