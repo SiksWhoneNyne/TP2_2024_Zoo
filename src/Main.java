@@ -1,3 +1,8 @@
+//Noms : Leandro Schoonewolff Cadavid et Mathias Hotoeua Wenceslas
+//URL du GitHub: https://github.com/SiksWhoneNyne/TP2_2024_Zoo
+//Tp2 version Finale
+
+
 // Classe principale représentant la gestion du zoo
 public class Main {
     public static void main(String[] args) {
@@ -79,7 +84,6 @@ public class Main {
             entree.afficherEnclos();
             visiteur.entrerDansZoo(zoo);
             for (int i = 0; i < entree.getNombreEnclos(); i++) {
-
                 visiteur.entrerDansEnclo(entree.getEnclos()[i]);
                 System.out.println("Nombre total d'animaux dans l'enclos : " + entree.getEnclos()[i].getNombreAnimaux());
                 for (int j = 0; j < entree.getEnclos()[i].getNombreAnimaux(); j++) {
@@ -104,14 +108,3 @@ public class Main {
         }
     }
 }
-
-// No import No regex
-// Si un gardien est congedier alors le retirer aussi de l'enclos
-// Si un nouveau gardien est recruter alors le placer dans un enclos
-// Noms pour ligne de  code  comme ecrit en gras dans le pdf
-// Essayer de tester tout les cas possible
-
-
-
-
-

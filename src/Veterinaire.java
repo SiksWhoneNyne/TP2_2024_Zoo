@@ -1,3 +1,6 @@
+//Noms : Leandro Schoonewolff Cadavid et Mathias Hotoeua Wenceslas
+//URL du GitHub: https://github.com/SiksWhoneNyne/TP2_2024_Zoo
+//Tp2 version Finale
 public class Veterinaire {
     private String nom;
     private Classe specialite;
@@ -27,16 +30,31 @@ public class Veterinaire {
         }
     }
 
-    // Getters
+    /**
+     * Obtient le nom du vétérinaire.
+     *
+     * @return Le nom du vétérinaire.
+     */
     public String getNom() {
         return nom;
     }
 
+    /**
+     * Obtient la spécialité du vétérinaire.
+     *
+     * @return La spécialité du vétérinaire.
+     */
     public Classe getSpecialite() {
         return specialite;
     }
 
+    /**
+     * Fournit une représentation textuelle d'un vétérinaire incluant son nom et sa spécialité.
+     *
+     * @return Une chaîne de caractères représentant le vétérinaire.
+     */
+    @Override
     public String toString(){
-        return nom + ", " + specialite;
+        return nom + ", spécialisé en " + specialite;
     }
 }
